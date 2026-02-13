@@ -1,0 +1,35 @@
+$date
+	Sat Feb  7 14:33:16 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module logical_operators $end
+$var reg 3 ! my_val1 [2:0] $end
+$var reg 4 " my_val2 [3:0] $end
+$var reg 1 # result $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+0#
+b0 "
+b111 !
+$end
+#1
+1#
+#2
+0#
+#3
+1#
+#4
+x#
+bx0x !
+#6
+0#

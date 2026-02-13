@@ -1,0 +1,75 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/va_math.vpi";
+S_0xc9a7da0bf670 .scope module, "my_first_testbech" "my_first_testbech" 2 1;
+ .timescale 0 0;
+v0xc9a7da0d2f80_0 .var "a", 7 0;
+v0xc9a7da0d3040_0 .var "b", 7 0;
+v0xc9a7da0d3110_0 .net "sum", 8 0, L_0xc9a7da0d34c0;  1 drivers
+S_0xc9a7da0bf800 .scope module, "ADDER1" "adder8bit" 2 12, 3 1 0, S_0xc9a7da0bf670;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /INPUT 8 "b";
+    .port_info 2 /OUTPUT 9 "sum";
+v0xc9a7da0bfa30_0 .net *"_ivl_0", 8 0, L_0xc9a7da0d3210;  1 drivers
+L_0xf71503216018 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0xc9a7da0d2990_0 .net *"_ivl_3", 0 0, L_0xf71503216018;  1 drivers
+v0xc9a7da0d2a70_0 .net *"_ivl_4", 8 0, L_0xc9a7da0d3380;  1 drivers
+L_0xf71503216060 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0xc9a7da0d2b30_0 .net *"_ivl_7", 0 0, L_0xf71503216060;  1 drivers
+v0xc9a7da0d2c10_0 .net "a", 7 0, v0xc9a7da0d2f80_0;  1 drivers
+v0xc9a7da0d2d40_0 .net "b", 7 0, v0xc9a7da0d3040_0;  1 drivers
+v0xc9a7da0d2e20_0 .net "sum", 8 0, L_0xc9a7da0d34c0;  alias, 1 drivers
+L_0xc9a7da0d3210 .concat [ 8 1 0 0], v0xc9a7da0d2f80_0, L_0xf71503216018;
+L_0xc9a7da0d3380 .concat [ 8 1 0 0], v0xc9a7da0d3040_0, L_0xf71503216060;
+L_0xc9a7da0d34c0 .arith/sum 9, L_0xc9a7da0d3210, L_0xc9a7da0d3380;
+    .scope S_0xc9a7da0bf670;
+T_0 ;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0xc9a7da0d2f80_0, 0, 8;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0xc9a7da0d3040_0, 0, 8;
+    %end;
+    .thread T_0;
+    .scope S_0xc9a7da0bf670;
+T_1 ;
+    %vpi_call 2 20 "$monitor", "a=%d, b=%d, sum=%d", v0xc9a7da0d2f80_0, v0xc9a7da0d3040_0, v0xc9a7da0d3110_0 {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0xc9a7da0bf670;
+T_2 ;
+    %delay 1, 0;
+    %pushi/vec4 1, 0, 8;
+    %store/vec4 v0xc9a7da0d2f80_0, 0, 8;
+    %delay 1, 0;
+    %pushi/vec4 10, 0, 8;
+    %store/vec4 v0xc9a7da0d3040_0, 0, 8;
+    %delay 1, 0;
+    %pushi/vec4 3, 0, 8;
+    %store/vec4 v0xc9a7da0d2f80_0, 0, 8;
+    %pushi/vec4 99, 0, 8;
+    %store/vec4 v0xc9a7da0d3040_0, 0, 8;
+    %delay 1, 0;
+    %pushi/vec4 101, 0, 8;
+    %store/vec4 v0xc9a7da0d2f80_0, 0, 8;
+    %pushi/vec4 66, 0, 8;
+    %store/vec4 v0xc9a7da0d3040_0, 0, 8;
+    %delay 1, 0;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0xc9a7da0d2f80_0, 0, 8;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0xc9a7da0d3040_0, 0, 8;
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "my_first_testbench.v";
+    "adder8bit.v";

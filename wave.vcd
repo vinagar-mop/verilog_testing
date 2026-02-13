@@ -1,0 +1,44 @@
+$date
+	Sat Feb  7 10:32:40 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	100ps
+$end
+$scope module bitwise_operators $end
+$var reg 6 ! result [5:0] $end
+$var reg 6 " x [5:0] $end
+$var reg 6 # y [5:0] $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 #
+b0 "
+b0 !
+$end
+#10
+b1 !
+b110001 #
+b101 "
+#20
+b111110 !
+#30
+b111111 !
+b11011 #
+b100101 "
+#40
+b0 !
+#50
+b1101 !
+b10110 "
+#60
+b110010 !
+#70
+b111111 !
+b11011 "

@@ -1,0 +1,104 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/aarch64-linux-gnu/ivl/va_math.vpi";
+S_0xbbb0a03581c0 .scope module, "light_controller" "light_controller" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /INPUT 1 "car_has_arrived";
+    .port_info 2 /INPUT 2 "current_light_state";
+    .port_info 3 /INPUT 1 "street_light_controller";
+    .port_info 4 /OUTPUT 2 "set_light_color";
+o0xf8f5b984f018 .functor BUFZ 1, C4<z>; HiZ drive
+v0xbbb0a0358430_0 .net "car_has_arrived", 0 0, o0xf8f5b984f018;  0 drivers
+o0xf8f5b984f048 .functor BUFZ 1, C4<z>; HiZ drive
+v0xbbb0a03a5a60_0 .net "clk", 0 0, o0xf8f5b984f048;  0 drivers
+o0xf8f5b984f078 .functor BUFZ 2, C4<zz>; HiZ drive
+v0xbbb0a03a5b20_0 .net "current_light_state", 1 0, o0xf8f5b984f078;  0 drivers
+v0xbbb0a03a5c10_0 .var "go_time", 8 0;
+v0xbbb0a03a5cf0_0 .var "set_light_color", 1 0;
+o0xf8f5b984f108 .functor BUFZ 1, C4<z>; HiZ drive
+v0xbbb0a03a5e20_0 .net "street_light_controller", 0 0, o0xf8f5b984f108;  0 drivers
+v0xbbb0a03a5ee0_0 .var "yield_time", 3 0;
+E_0xbbb0a0391d60 .event posedge, v0xbbb0a03a5a60_0;
+E_0xbbb0a03914f0 .event posedge, v0xbbb0a0358430_0, v0xbbb0a03a5a60_0;
+E_0xbbb0a0391170 .event anyedge, v0xbbb0a03a5cf0_0;
+    .scope S_0xbbb0a03581c0;
+T_0 ;
+    %pushi/vec4 0, 0, 4;
+    %store/vec4 v0xbbb0a03a5ee0_0, 0, 4;
+    %pushi/vec4 0, 0, 9;
+    %store/vec4 v0xbbb0a03a5c10_0, 0, 9;
+    %end;
+    .thread T_0;
+    .scope S_0xbbb0a03581c0;
+T_1 ;
+    %wait E_0xbbb0a0391170;
+    %vpi_call 2 31 "$monitor", "\012\011 MON current_light_state = %d,\012 street_light_controller = %d,\012 set_light_color = %d\012", v0xbbb0a03a5b20_0, v0xbbb0a03a5e20_0, v0xbbb0a03a5cf0_0 {0 0 0};
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_0xbbb0a03581c0;
+T_2 ;
+    %wait E_0xbbb0a03914f0;
+    %load/vec4 v0xbbb0a03a5e20_0;
+    %nor/r;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.0, 8;
+    %load/vec4 v0xbbb0a03a5b20_0;
+    %cmpi/e 3, 0, 2;
+    %jmp/0xz  T_2.2, 4;
+    %load/vec4 v0xbbb0a0358430_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.4, 8;
+    %pushi/vec4 1, 0, 2;
+    %cassign/vec4 v0xbbb0a03a5cf0_0;
+T_2.4 ;
+T_2.2 ;
+T_2.0 ;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_0xbbb0a03581c0;
+T_3 ;
+    %wait E_0xbbb0a0391d60;
+    %load/vec4 v0xbbb0a03a5b20_0;
+    %cmpi/e 1, 0, 2;
+    %jmp/0xz  T_3.0, 4;
+    %load/vec4 v0xbbb0a03a5ee0_0;
+    %cmpi/u 5, 0, 4;
+    %jmp/0xz  T_3.2, 5;
+    %load/vec4 v0xbbb0a03a5ee0_0;
+    %addi 1, 0, 4;
+    %store/vec4 v0xbbb0a03a5ee0_0, 0, 4;
+    %jmp T_3.3;
+T_3.2 ;
+    %load/vec4 v0xbbb0a03a5ee0_0;
+    %cmpi/u 5, 0, 4;
+    %flag_inv 5; GE is !LT
+    %jmp/0xz  T_3.4, 5;
+    %pushi/vec4 0, 0, 2;
+    %cassign/vec4 v0xbbb0a03a5cf0_0;
+T_3.4 ;
+T_3.3 ;
+T_3.0 ;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0xbbb0a03581c0;
+T_4 ;
+    %load/vec4 v0xbbb0a03a5e20_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_4.0, 8;
+    %pushi/vec4 3, 0, 2;
+    %cassign/vec4 v0xbbb0a03a5cf0_0;
+T_4.0 ;
+    %end;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "light_controller.v";
