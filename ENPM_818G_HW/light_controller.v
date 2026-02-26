@@ -24,37 +24,39 @@ module light_controller(
     // 0 can't allow green
     input street_light_controller);
 
-    reg [3:0] yield_time = 0;
-    reg [8:0] go_time = 0;
+    reg [3:0] yield_time = 4'd0;
+
+    // initial begin
+    //     $monitor("yield time = %b", yield_time);
+    // end
 
 
-    // keep track GREEN
-    // Transitioning to YIELD
-    always @(posedge clk or posedge car_has_arrived) begin
-        if(!street_light_controller) begin
-            if (current_light_state == 2'b11) begin 
-                if (car_has_arrived) begin // TODO: implement the clock
-                    assign set_light_color = 2'b01; // Setting light to YIELD
-                end
+    always @(posedge clk) begin
+        if (current_light_state == 2'b11) begin 
+            if(street_light_controller == 1'b0) begin
+                //if (car_has_arrived == 1'b1 ) begin // TODO: implement the clock
+                assign set_light_color = 2'b01; // Setting light to YIELD
+                //$display("we made it in the green state moving to yellow and color set to %d", set_light_color); 
+                //end
             end
         end
-    end
-
-    // Keeping track of YIELD 
-    // Transitioning it to GREEN
-    always @(posedge clk) begin
-        if (current_light_state == 2'b01) begin 
-            if (yield_time < 4'd5) begin
-                yield_time = yield_time + 1; // incrementing yield time
-            end
-            else if (yield_time >= 4'd5) begin
-                assign set_light_color = 2'b00;    // setting the lights to RED
-            end
+        else if (current_light_state == 2'b01) begin
+            //if (street_light_controller == 1'b1) begin
+                yield_time = yield_time + 4'd1; // incrementing yield time
+                if (yield_time >= 4'd5) begin
+                    assign set_light_color = 2'b00;    // setting the lights to RED
+                    yield_time = 4'd0; // incrementing yield time
+                end
+            //end
         end
         else if (current_light_state == 2'b00) begin 
-            if (street_light_controller) begin
+            //$display("we made it in the red state"); 
+            if (street_light_controller == 1'b1) begin
                 assign set_light_color = 2'b11; // Setting light to GREEN
             end
+        end
+        else begin
+            assign set_light_color = current_light_state;
         end
     end
 

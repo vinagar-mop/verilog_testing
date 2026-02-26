@@ -5,7 +5,7 @@ module light_controller_tb();
     // 0 = red
     // 3 = green
     // 1 = yellow
-    wire [1:0] set_light_color;
+    wire [1:0] set_light_color = 0;
 
     // Clock input
     // Clk
@@ -36,9 +36,10 @@ module light_controller_tb();
     initial begin 
         $dumpfile("light_controller_tb.vcd");
         $dumpvars(0, light_controller_tb);
-        $monitor("MON current_light_state = %d, street_light_controller = %d, set_light_color = %d\n",
+        $monitor("MON current_light_state = %d, street_light_controller = %d, car_has_arrived = %d, set_light_color = %d\n",
                 current_light_state,
                 street_light_controller,
+                car_has_arrived,
                 set_light_color);
     end
 
@@ -52,22 +53,61 @@ module light_controller_tb();
         car_has_arrived = 0;
         current_light_state = 0;
         street_light_controller = 0;
-        
-        #10; // wait 10 time unit
+
+        // Test 1b: when the street light enables 
+        #10;
         car_has_arrived = 0;
         current_light_state = 0;
         street_light_controller = 1;
 
-        #10; // wait 10 time unit
+        #1000; // wait 10 time unit
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 1;
+
+        #1000; // wait 10 time unit
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 1;
+
+        #1000; // wait 10 time unit
         car_has_arrived = 1;
-        current_light_state = 3;
+        current_light_state = set_light_color;
         street_light_controller = 0;
 
+        #100000;
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 0;
+
+        #100000;
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 0;
+
+        #100000;
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 1;
+
+        #100000;
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 1;
+
+        #100000;
+        car_has_arrived = 0;
+        current_light_state = set_light_color;
+        street_light_controller = 0;
+
+        #100000;
+        car_has_arrived = 1;
+        current_light_state = set_light_color;
+        street_light_controller = 0;
+
+        #100000;
+
         #10; // wait 10 time unit
-        // car_has_arrived = 0;
-        // current_light_state = 0;
-        // street_light_controller = 0;
-        //LOGIC(set_light_color, clk, car_has_arrived, current_light_state, street_light_controller);
         $finish();
     end
     
