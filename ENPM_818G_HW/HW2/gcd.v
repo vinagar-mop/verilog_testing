@@ -1,0 +1,8 @@
+module gcd();
+
+input 
+
+
+
+
+endmodule

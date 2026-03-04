@@ -52,7 +52,7 @@ module street_light_controller(
     );
 
     always @(*) begin
-        $monitor("Street_light 1 = %2b, Street_light 3 = %2b, 1&3_con = %b, Street_light 2 = %2b, Street_light 4 = %2b, 2&4_con = %b, push button = %d, reset = %d",
+        $monitor("Street_light 1 = %2b, Street_light 3 = %2b, 1&3_con = %b, Street_light 2 = %2b, Street_light 4 = %2b, 2&4_con = %b, push button = %d, reset = %d, clock = %d",
                  street_light1,
                  street_light3,
                  north_south_street_light_controller,
@@ -60,7 +60,8 @@ module street_light_controller(
                  street_light4,
                  east_west_street_light_controller,
                  button_pushed,
-                 reset);
+                 reset,
+                 clk);
     end
 
     always @(posedge reset) begin
